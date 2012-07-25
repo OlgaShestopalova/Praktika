@@ -35,6 +35,7 @@ def main():
 			if event.type == pygame.KEYDOWN: 
 				if event.key == 32:
 					ff = not ff
+					disk.move(z, ff, left, disk.kolvo_1, disk.kolvo_2, disk.kolvo_3)
 				if event.key == pygame.K_RIGHT:
 					if left >= 460:break
 					left += 230
@@ -52,10 +53,7 @@ def main():
 			disk.delit(disk.sp_disk_1)
 			print disk.sp_disk_1
 			disk.draw(disk.sp_disk_1,screen)
-		#print("Main loop: " , ff)
-		#print(z, ff, left, disk.kolvo_1, disk.kolvo_2, disk.kolvo_3)
-		#disk.move(z, ff, left, disk.kolvo_1, disk.kolvo_2, disk.kolvo_3)
-		#print("Move func called")
+		disk.move(z, ff, left, disk.kolvo_1, disk.kolvo_2, disk.kolvo_3)
 		disk.draw(disk.sp_disk_1,screen)
 		disk.draw(disk.sp_disk_2,screen)
 		disk.draw(disk.sp_disk_3,screen)
@@ -124,7 +122,7 @@ class Disk():
 		b = 0
 		c = 0
 		
-	def disk(self,kolvo): #создает список дисков, которые будут созданы в самом начале.
+	def disk(self,kolvo): 
 		width = 210
 		height = 20
 		i = 0
@@ -140,7 +138,7 @@ class Disk():
 		
 			
 	
-	def disk_1(self, a, kolvo, sp_disk_1): #добавляет в список дисков диск, который сняли с другого стежня. в функцию передается количество дисков со стержня, с которого сняли диск.
+	def disk_1(self, a, kolvo, sp_disk_1): 
 		i = 0
 		while i < kolvo:
 			width = width - 10
@@ -152,7 +150,7 @@ class Disk():
 		a += 1
 		return self.sp_disk_1
 		
-	def disk_2(self,b, kolvo, sp_disk_2): #аналогично disk_1 только добавляет  sp_disk_2.
+	def disk_2(self,b, kolvo, sp_disk_2): 
 		i = 0
 		while i < kolvo:
 			width = width - 10
@@ -165,7 +163,7 @@ class Disk():
 		return self.sp_disk_2
 			
 			
-	def disk_3(self, c, kolvo, sp_disk_3): ##аналогично disk_1 только добавляет  sp_disk_2.
+	def disk_3(self, c, kolvo, sp_disk_3):
 		width = 210
 		height = 20
 		i = 0
@@ -179,7 +177,7 @@ class Disk():
 		c +=1
 		return self.sp_disk_3
 		
-	def move(self, z, fff, left, kolvo_1, kolvo_2, kolvo_3): #перемещение диска. принимает z(то есть захвачен диск или нет, по умолчанию = 0), f - нажат ли пробел, left - положение рамки. все остальное вроде понятно.
+	def move(self, z, fff, left, kolvo_1, kolvo_2, kolvo_3): 
 		s = 0 
 		
 		print("Move func: ", fff)
@@ -240,11 +238,11 @@ class Disk():
 					self.move(1, 0, left, self.kolvo_1, self.kolvo_2, self.kolvo_3)
 				return self.sp_disk_3
 
-	def delit(self, sp_disk): # удаляет из переданого списка дисков последний(верхний диск)
+	def delit(self, sp_disk): 
 		sp_disk = sp_disk[:-1]
 		return sp_disk
 	
-	def draw(self, sp_disk, screen): # получив список дисков, рисует.
+	def draw(self, sp_disk, screen):
 		for disk in sp_disk:
 			pygame.draw.rect(self.screen,(87,57,205),disk)
 		
