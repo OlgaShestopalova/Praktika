@@ -15,6 +15,7 @@ bronza = pygame.image.load('bronza.png')
 serebro = pygame.image.load('serebro.png')
 zoloto = pygame.image.load('zoloto.png')
 instr = pygame.image.load('instr.png')
+replay = pygame.image.load('replay.png')
 go = False
 kolvo_start = 3
 
@@ -82,6 +83,8 @@ def main():
 				elif mx > 710 and mx <756 and my > 380 and my < 430 and muz == 1:
 					pygame.mixer.music.unpause()
 					muz = 0
+				elif mx > 760 and mx < 810 and my > 380 and my < 430:
+					main()
 					
 			text1 = font3.render('Click ' + str(game.click), 1, (0,0,0))
 			textpos1 = text1.get_rect()
@@ -92,12 +95,11 @@ def main():
 			
 		screen.fill((255,255,255))
 		screen.blit(fon, (0,0))
-		screen.blit(sound_on,(710,380))
 		if muz == 0:
 			screen.blit(sound_on,(710,380))
 		elif muz == 1:
 			screen.blit(sound_off,(710,380))
-				
+		screen.blit(replay, (760, 380))		
 		doska.draw(screen)
 		st_1.draw(screen)
 		st_2.draw(screen)
@@ -177,7 +179,7 @@ def delete_3(st_3,sp_disk_3): #Функция, удаяляющая верхни
 	st_3.sp_disk_3 = st_3.sp_disk_3[:-1]
 	return st_3.sp_disk_3
 					
-def preo(sp_disk, kolvo): #Функция, позволяющая получить из последнего элмента списка дисков его размеры
+def preo(sp_disk, kolvo): #Функция, позволяющая получить из последнего элемента списка дисков его размеры
 	if kolvo == 0:
 		pass
 	else:
@@ -514,15 +516,12 @@ def wwin(go, game):
 	menupos1 = pygame.Rect(600,380,300,45)
 	menu2 = font3.render(u'Выход', 1, (0, 0, 0))
 	menupos2 = pygame.Rect(750,340,154,45)
-	menu3 = font.render(u'Конец!', 1, (0, 0, 0))
-	menupos3 = pygame.Rect(170, 370,154,45)
 	width = 840
 	height = 440
 	click = game.click
 	minclick = game.minclick
 	screen_size = (width, height)
 	screen = pygame.display.set_mode(screen_size, pygame.DOUBLEBUF | pygame.HWSURFACE)
-	done = False
 	global kolvo_start
 	while not go:
 		for event in pygame.event.get():
@@ -545,11 +544,10 @@ def wwin(go, game):
 				if game == 1:
 					sys.exit(0)
 				if game == 2:
-					done = False
 					go = True
 					kolvo_start += 1
 					if kolvo_start >7:
-						exitt(game)
+						exitt()
 						break
 					else:		
 						main()
@@ -577,7 +575,7 @@ def wwin(go, game):
 		pygame.display.flip()
 	time.sleep(0.015)
 
-def exitt(game_status):
+def exitt():
 	menu2 = font3.render(u'Выход', 1, (0, 0, 0))
 	menupos2 = pygame.Rect(710, 370,154,45)
 	menu = font.render(u'Игра окончена', 1, (0, 0, 0))
@@ -586,7 +584,6 @@ def exitt(game_status):
 	height = 440
 	screen_size = (width, height)
 	screen = pygame.display.set_mode(screen_size, pygame.DOUBLEBUF | pygame.HWSURFACE)
-	done = False
 	global kolvo_start
 	while not done:
 		for event in pygame.event.get():
